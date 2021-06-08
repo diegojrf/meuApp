@@ -1,24 +1,58 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 
 export default class App3 extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      nome: ""
+    };
+
+    this.pegaNome = this.pegaNome.bind(this);
+  }
+
+  pegaNome(texto){
+    this.setState({nome: texto});
+  }
+
   render() {
     return (
-      // flex: 1 na View principal, deixa a View do tamanho da tela do celular
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          // alignItems: 'stretch': para o stretch, a flexDirection tem que ser column e a view filha não pode ter um
-          // width fixo
-        }}>
-        {/* o flex nas outras Views vai determinando o quanto ela ocupará da View principal, que no caso, ocupou a tela toda do celular */}
-        <View style={{width: 50, height: 50, backgroundColor: 'red'}}></View>
-        <View style={{width: 50, height: 50, backgroundColor: 'green'}}></View>
-        <View style={{width: 50, height: 50, backgroundColor: 'yellow'}}></View>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite um texto!"
+          underlineColorAndroid='transparent'
+          onChangeText={this.pegaNome}
+        />
+
+        {this.state.nome.length > 0 ? 
+          <Text style={styles.texto}>Bem-vindo {this.state.nome}</Text> : 
+          <Text style={styles.texto}></Text>
+        }
+
+        
+        
+        
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  input: {
+    height: 45,
+    borderWidth: 1,
+    borderColor: '#222',
+    margin: 10,
+    padding: 10,
+    fontSize: 20
+  },
+  texto: {
+    textAlign: 'center',
+    fontSize: 45
+  }
+});
